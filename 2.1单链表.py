@@ -41,6 +41,13 @@ class SingleLinkList(object):
             cur = cur.next
         print("")
 
+    def travel_iter(self):
+        '''遍历链表迭代器版本'''
+        cur = self._head # 指向头节点
+        while cur:
+            yield cur.item
+            cur = cur.next
+
     def add(self,item):
         """头部添加元素"""
         # 先创建一个保存item值的节点
@@ -105,6 +112,21 @@ class SingleLinkList(object):
                 pre = cur
                 cur = cur.next
 
+    def delete_node(self, item):
+        cur = self._head
+        pre = None
+        while cur:
+            if cur.item == item:
+                print('find the delete node...', item)
+                if pre:
+                    pre.next = cur.next
+                else:
+                    # 删除头节点
+                    self._head = self._head.next
+                break
+            pre = cur
+            cur = cur.next
+
     def search(self, item):
         """链表查找节点是否存在，并返回True或者False"""
         cur = self._head
@@ -128,3 +150,10 @@ if __name__ == "__main__":
     print("length:",ll.length())
     ll.travel()
 
+    ll_iter = ll.travel_iter()
+    for item in ll_iter:
+        print(item)
+
+    ll.delete_node(1)
+    print('*'*20)
+    ll.travel()
